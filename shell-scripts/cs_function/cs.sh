@@ -15,6 +15,7 @@ function cs {
     #handle chapter 2
     if [ $chapter = 2 ]; then
         vim ~/Dropbox/computer_science/$chapter/notes_and_exercises.c
+    fi
     #handle chapter 3
     if [ $chapter = 3 ]; then
         vim ~/Dropbox/computer_science/$chapter/notes_and_exercises.c
