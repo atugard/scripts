@@ -4,15 +4,6 @@ use URI;
 use utf8;
 use Term::ANSIColor;
 use Scalar::Util qw(looks_like_number);
-#git operation cd ~/Dropbox/computer_science/1/ && git add
-#notes_and_exercises.scm -m $1
-#;we can syntactically form the entire proposition before we even pass it as an
-#argument to execute! We can do analysis on syntax first...
-
-
-#Space here to do analysis on syntax...
-
-
 
 sub exec_procedure{
     my $file = shift(@_);
@@ -41,32 +32,45 @@ sub options{
     print $file;
     sub print_options_for_file{
         my $_file = shift(@_);
-        print "Would you like to \n";
-        print color('bold blue');
-        print "vim ";               #open file in vim
-        print color('reset');
-        print "Open ";
+        print "\nWould you like to: \n\n";
+        print color('bold magenta');
+        print "===========================================\n\n";
+        print  color('reset');
+        print "  (";
         print color('bold green');
-        print $_file;
+        print "vim";               #open file in vim
         print color('reset');
-        print " in vim?  \n";
+        print ") ";
+        print "   Edit ";
         print color('bold blue');
-        print "scheme " ;          #load file in scheme
+        print $_file;
+        print color('bold magenta');
+        # print "-------------------------------------------\n";
+        print  color('reset');
+        print "  (";
+        print color('bold green');
+        print "scheme" ;          #load file in scheme
         print color('reset');
+        print ") ";
         print "Load ";
-        print color('bold green');
-        print $_file; 
-        print color('reset');
-        print " in scheme? \n";
         print color('bold blue');
-        print "git ";             #add,commit, and push file to repo.
-        print color('reset');
-        print "Add, commit, and push ";
+        print $_file; 
+        print color('bold magenta');
+        # print "-------------------------------------------\n";
+        print  color('reset');
+        print "  (";
         print color('bold green');
-        print $_file;
+        print "git";             #add,commit, and push file to repo.
         print color('reset');
-        print " to git repo? \n";
-        print "Type vim, scheme, or git, or q to quit. ";
+        print ") ";
+        print "   Push ";
+        print color('bold blue');
+        print $_file;
+        print color('bold magenta');
+        print "\n===========================================\n\n";
+        print  color('reset');
+
+        print "Type vim, scheme, or git, or q to quit.\n\n";
     }
     print_options_for_file $file;
 
@@ -76,14 +80,25 @@ sub options{
 }
 sub select_scm_file{
     my $n = scalar @_;
-    print "Would you like to: \n";
+    print "Would you like to: \n\n";
+    print color('bold magenta');
+    print "===========================================\n\n";
+    print  color('reset');
     for my $i (0.. ($n-1)){
+        print "  (";
         print color('bold green');
-        print "  $i";
+        print $i+1;
         print color('reset');
-        print " Access $_[$i]  \n";
+        print ") ";
+        print " Access ";        
+        print color('bold blue');
+        print "$_[$i]";
+        print color('reset');
     };
-    print "  Enter a number, or q to quit.";
+    print color('bold magenta');
+    print "\n===========================================\n\n";
+    print  color('reset');
+    print "  Enter number, or q to quit.\n\n";
     my $input = <STDIN>;
     chomp $input;
     if("$input" eq "q"){
@@ -93,7 +108,70 @@ sub select_scm_file{
     }
 }
 sub main{
-    print "Which  chapter are you on? Enter number, or q to quit. \n";
+    sub print_chapters{
+        print color('bold magenta');
+        print "===========================================\n\n";
+        print  color('reset');
+        print "  (";
+        print color('bold green');
+        print "1";
+        print color('reset');
+        print ") ";
+        print " Programming\n";
+        print "  (";
+        print color('bold green');
+        print "2";
+        print color('reset');
+        print ") ";
+        print " Computer Architecture.\n";
+        print "  (";
+        print color('bold green');
+        print "3";
+        print color('reset');
+        print ") ";
+        print " Algorithms and Data Structures.\n";
+        print "  (";
+        print color('bold green');
+        print "4";
+        print color('reset');
+        print ") ";
+        print " Math for CS.\n";
+        print "  (";
+        print color('bold green');
+        print "5";
+        print color('reset');
+        print ") ";
+        print " Operating systems.\n";
+        print "  (";
+        print color('bold green');
+        print "6";
+        print color('reset');
+        print ") ";
+        print " Computer Networking\n";
+        print "  (";
+        print color('bold green');
+        print "7";
+        print color('reset');
+        print ") ";
+        print " Databases\n";
+        print "  (";
+        print color('bold green');
+        print "8";
+        print color('reset');
+        print ") ";
+        print " Languages and Compilers\n";
+        print "  (";
+        print color('bold green');
+        print "9";
+        print color('reset');
+        print ") ";
+        print " Distributed Systems.\n";
+        print color('bold magenta');
+        print "\n\n===========================================\n\n";
+        print  color('reset');
+        print "Which  chapter are you on? Enter number, or q to quit. \n\n";
+    }
+    print_chapters;
     my $input = <STDIN>;
     chomp $input;
     if( "$input" eq "q" ){
