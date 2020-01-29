@@ -6,6 +6,14 @@ function define {
     perl ~/tools/scripts/define/define.pl $1
 }
 
+function cs {
+    perl ~/tools/scripts/cs_function/cs.pl
+}
+
+function cs_config {
+    vim ~/tools/scripts/cs_function/cs.pl
+}
+
 function s {
     echo "Are you sure that you want to shut down your computer?"
     read answer
@@ -17,38 +25,24 @@ function s {
     fi
 }
 
-function search {
-    if [[ $# -eq 0 ]]; then
-        echo "You have to pass at least one argument!"
-    elif [[ $# -eq 1 ]]; then
-        < $1
-    elif [[ $# -eq 2 ]]; then
-        < $1 grep -i $2
-    else
-        echo "You can pass at most two arguments!"
-    fi
-}
-    
-
-
-
 #Change this function to search for config files in ~/dotfiles/* rather than ~/.config/*, since these are symbolically linked to the latter anyway.
 function config {
     echo "Which config file do you want to open?"
     read answer
     if [ "$answer" = "i3" ]; then
-        vim ~/.config/i3/config
+        vim ~/dotfiles/i3/config
     elif [ "$answer" = "picom" ]; then
-        vim ~/.config/picom/picom.conf
+        vim ~/dotfiles/picom/picom.conf
     elif [ "$answer" = "dunst" ]; then
-        vim ~/.config/dunst/dunstrc
+        vim ~/dotfiles/dunst/dunstrc
     elif [ "$answer" = "vim" ]; then
-        vim ~/.vimrc
+        vim ~/dotfiles/vim/.vimrc
     elif [ "$answer" = "zsh" ]; then
-        vim ~/.zshrc
+        vim ~/dotfiles/zsh/.zshrc
     elif [ "$answer" = "rofi" ]; then
-        vim ~/.config/rofi/config
+        vim ~/dotfiles/rofi/config
     elif [ "$answer" = "polybar" ]; then
+        #havent yet symbolically linked polybar correctly yet
         vim ~/.config/polybar/config_top.ini
     else
         echo "Sorry, couldn't find a config file in reference to the name $answer !"
