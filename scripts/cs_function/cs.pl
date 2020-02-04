@@ -5,14 +5,18 @@ use utf8;
 use Term::ANSIColor;
 use Scalar::Util qw(looks_like_number);
 
+
+#todo: add loop at this level.
 sub exec_procedure{
     my $file = shift(@_);
     my $procedure = shift(@_);
-    if ("$procedure" eq "vim"){
+    if ("$procedure" eq "q"){
+        print "Exiting... \n";
+    }elsif ("$procedure" eq "1"){
         system "vim ~/Dropbox/computer_science/1/$file";
-    }elsif ("$procedure" eq "scheme"){
+    }elsif ("$procedure" eq "2"){
         system "scheme --load ~/Dropbox/computer_science/1/$file";
-    }elsif ("$procedure" eq "git"){
+    }elsif ("$procedure" eq "3"){
         sub git{
             my $operation = shift(@_);
             system "git -C ~/Dropbox/computer_science/1 $operation"
@@ -23,7 +27,7 @@ sub exec_procedure{
         git "commit -m $commit_message";
         git "push origin master";
     }else{
-        print "Couldn't find $file $procedure !";
+        print "\nCouldn't find $procedure to run on file $file. \n";
     }
 }
 
@@ -32,13 +36,13 @@ sub options{
     print $file;
     sub print_options_for_file{
         my $_file = shift(@_);
-        print "\nWould you like to: \n\n";
+        print "\n\n Would you like to: \n\n";
         print color('bold magenta');
         print "===========================================\n\n";
         print  color('reset');
         print "  (";
         print color('bold green');
-        print "vim";               #open file in vim
+        print "1";               #open file in vim
         print color('reset');
         print ") ";
         print "   Edit ";
@@ -49,10 +53,10 @@ sub options{
         print  color('reset');
         print "  (";
         print color('bold green');
-        print "scheme" ;          #load file in scheme
+        print "2" ;          #load file in scheme
         print color('reset');
         print ") ";
-        print "Load ";
+        print "   Load ";
         print color('bold blue');
         print $_file; 
         print color('bold magenta');
@@ -60,7 +64,7 @@ sub options{
         print  color('reset');
         print "  (";
         print color('bold green');
-        print "git";             #add,commit, and push file to repo.
+        print "3";             #add,commit, and push file to repo.
         print color('reset');
         print ") ";
         print "   Push ";
@@ -103,11 +107,22 @@ sub select_scm_file{
     chomp $input;
     if("$input" eq "q"){
         print "Exiting... \n";
-    }else{
-        options $_[$input];
+    #add looks like  number code here
+    }elsif($input>$n){
+        my $upperbound = $n-1;
+        print "\nSorry. You must select a number between 0 and $upperbound \n";
+        select_scm_file(@_);
+    }
+    else{
+        options $_[$input-1];
     }
 }
 sub main{
+    print "Which  chapter are you on? Enter number, l to list options, or q to quit. \n\n";
+    my $input = <STDIN>;
+    chomp $input;
+
+    #
     sub print_chapters{
         print color('bold magenta');
         print "===========================================\n\n";
@@ -169,20 +184,25 @@ sub main{
         print color('bold magenta');
         print "\n\n===========================================\n\n";
         print  color('reset');
-        print "Which  chapter are you on? Enter number, or q to quit. \n\n";
     }
-    print_chapters;
-    my $input = <STDIN>;
-    chomp $input;
+
+    #handle input
     if( "$input" eq "q" ){
         print "Exiting... \n";
     }elsif(looks_like_number($input)){
+        #handle by chapter. develop general chapter functions??
         if($input==1){
             my @file_array = `cd ~/Dropbox/computer_science/"$input" && ls | grep .scm`;
             select_scm_file(@file_array);
+        }elsif("$input" eq "2"){
+            system "vim ~/Dropbox/computer_science/2/notes_and_exercises.c"
         }else{
             system "perl ~/tools/scripts/cs_function/cs.pl";
         }
+    }elsif("$input" eq "l"){
+        print_chapters;
+        system "perl ~/tools/scripts/cs_function/cs.pl";
+
     }else{
         system "perl ~/tools/scripts/cs_function/cs.pl";
     }

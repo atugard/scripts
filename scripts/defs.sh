@@ -44,9 +44,19 @@ function config {
     elif [ "$answer" = "polybar" ]; then
         #havent yet symbolically linked polybar correctly yet
         vim ~/.config/polybar/config_top.ini
+    elif [ "$answer" = "bspwm" ]; then
+        vim ~/.config/bspwm/bspwmrc
+    elif [ "$answer" = "bindings" ]; then
+        vim ~/.config/sxhkd/sxhkdrc
+    elif [ "$answer" = "st" ]; then
+        vim ~/st-0.8.2/config.h
     else
         echo "Sorry, couldn't find a config file in reference to the name $answer !"
     fi
+}
+
+function reset_bspwm {
+    ~/.config/bspwm/bspwmrc
 }
 
 
