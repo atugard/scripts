@@ -8,30 +8,33 @@ use Scalar::Util qw(looks_like_number);
 
 #todo: add loop at this level.
 sub exec_procedure{
+    my $ch_number = shift(@_);
     my $file = shift(@_);
     my $procedure = shift(@_);
     if ("$procedure" eq "q"){
         print "Exiting... \n";
     }elsif ("$procedure" eq "1"){
-        system "vim ~/Dropbox/computer_science/1/$file";
+        system "vim ~/Dropbox/computer_science/$ch_number/$file";
     }elsif ("$procedure" eq "2"){
-        system "scheme --load ~/Dropbox/computer_science/1/$file";
+        system "scheme --load ~/Dropbox/computer_science/$ch_number/$file";
     }elsif ("$procedure" eq "3"){
         sub git{
+            my $ch_number = shift(@_);
             my $operation = shift(@_);
-            system "git -C ~/Dropbox/computer_science/1 $operation"
+            system "git -C ~/Dropbox/computer_science/$ch_number $operation"
         };
-        git "add $file";
+        git($ch_number, "add $file");
         print "What is your commit message?\n";
         my $commit_message = <STDIN>;
-        git "commit -m $commit_message";
-        git "push origin master";
+        git($ch_number, "commit -m $commit_message");
+        git($ch_number, "push origin master");
     }else{
         print "\nCouldn't find $procedure to run on file $file. \n";
     }
 }
 
 sub options{
+    my $ch_number = shift(@_);
     my $file = shift(@_);
     print $file;
     sub print_options_for_file{
@@ -80,9 +83,10 @@ sub options{
 
     my $procedure = <STDIN>;
     chomp $procedure;
-    exec_procedure($file, $procedure);
+    exec_procedure($ch_number, $file, $procedure);
 }
 sub select_scm_file{
+    my $ch_number = shift @_;
     my $n = scalar @_;
     print "Would you like to: \n\n";
     print color('bold magenta');
@@ -111,10 +115,10 @@ sub select_scm_file{
     }elsif($input>$n){
         my $upperbound = $n-1;
         print "\nSorry. You must select a number between 0 and $upperbound \n";
-        select_scm_file(@_);
+        select_scm_file($ch_number , @_);
     }
     else{
-        options $_[$input-1];
+        options($ch_number, $_[$input-1]);
     }
 }
 sub main{
@@ -191,11 +195,9 @@ sub main{
         print "Exiting... \n";
     }elsif(looks_like_number($input)){
         #handle by chapter. develop general chapter functions??
-        if($input==1){
+        if( $input==1 || $input==2 ){
             my @file_array = `cd ~/Dropbox/computer_science/"$input" && ls | grep .scm`;
-            select_scm_file(@file_array);
-        }elsif("$input" eq "2"){
-            system "vim ~/Dropbox/computer_science/2/notes_and_exercises.c"
+            select_scm_file($input, @file_array);
         }else{
             system "perl ~/tools/scripts/cs_function/cs.pl";
         }
