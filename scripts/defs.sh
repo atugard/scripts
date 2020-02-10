@@ -1,20 +1,15 @@
-function latex_build {
+latex_build(){
     perl ~/tools/scripts/latex_build/latex_build.pl $1
 }
 
-function define {
-    perl ~/tools/scripts/define/define.pl $1
-}
+define(){perl ~/tools/scripts/define/define.pl $1}
 
-function cs {
-    perl ~/tools/scripts/cs_function/cs.pl
-}
 
-function cs_config {
-    vim ~/tools/scripts/cs_function/cs.pl
-}
+cs(){perl ~/tools/scripts/cs_function/cs.pl}
 
-function s {
+cs_config(){$EDITOR ~/tools/scripts/cs_function/cs.pl}
+
+s(){
     echo "Are you sure that you want to shut down your computer?"
     read answer
     if [ "$answer" = "yes" ] || [ "$answer" = "y" ]; then
@@ -26,37 +21,47 @@ function s {
 }
 
 #Change this function to search for config files in ~/dotfiles/* rather than ~/.config/*, since these are symbolically linked to the latter anyway.
-function config {
+config(){
     echo "Which config file do you want to open?"
     read answer
     if [ "$answer" = "i3" ]; then
-        vim ~/dotfiles/i3/config
+        $EDITOR ~/dotfiles/i3/config
     elif [ "$answer" = "picom" ]; then
-        vim ~/dotfiles/picom/picom.conf
+        $EDITOR ~/dotfiles/picom/picom.conf
     elif [ "$answer" = "dunst" ]; then
-        vim ~/dotfiles/dunst/dunstrc
+        $EDITOR ~/dotfiles/dunst/dunstrc
     elif [ "$answer" = "vim" ]; then
-        vim ~/dotfiles/vim/.vimrc
+        $EDITOR ~/dotfiles/vim/.vimrc
     elif [ "$answer" = "zsh" ]; then
-        vim ~/dotfiles/zsh/.zshrc
+        $EDITOR ~/dotfiles/zsh/.zshrc
     elif [ "$answer" = "rofi" ]; then
-        vim ~/dotfiles/rofi/config
+        $EDITOR ~/dotfiles/rofi/config
     elif [ "$answer" = "polybar" ]; then
-        #havent yet symbolically linked polybar correctly yet
-        vim ~/.config/polybar/config_top.ini
+        $EDITOR ~/dotfiles/polybar/config
     elif [ "$answer" = "bspwm" ]; then
-        vim ~/.config/bspwm/bspwmrc
+        $EDITOR ~/dotfiles/bspwm/bspwmrc
     elif [ "$answer" = "bindings" ]; then
-        vim ~/.config/sxhkd/sxhkdrc
+        $EDITOR ~/dotfiles/sxhkd/sxhkdrc
     elif [ "$answer" = "st" ]; then
-        vim ~/st-0.8.2/config.h
+        $EDITOR ~/dotfiles/st/config.h
     else
         echo "Sorry, couldn't find a config file in reference to the name $answer !"
     fi
 }
 
-function reset_bspwm {
-    ~/.config/bspwm/bspwmrc
+reset(){
+    #> /dev/null sends output to the null device
+    #&1 is File descriptor 1 is the standard output (stdout)
+    #2 is the standard error (stderr)
+    #% has syntax of file descriptors only in context of redirections, i.e. after >
+    ~/.config/bspwm/bspwmrc > /dev/null 2>&1
 }
 
+logout(){pkill x}
+p(){bluetoothctl pair $beats_id}
+c(){bluetoothctl connect $beats_id}
+en(){setxkbmap -layout us}
+fr(){setxkbmap -layout ca -variant fr}
 
+scs(){ dir=`du -a ~/Dropbox/computer_science/ | awk '{print $2}' | fzf `; $EDITOR $dir}
+sh(){ dir=`du -a ~/ | awk '{print $2}' | fzf `; $EDITOR $dir};
