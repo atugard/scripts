@@ -63,5 +63,10 @@ c(){bluetoothctl connect $beats_id}
 en(){setxkbmap -layout us}
 fr(){setxkbmap -layout ca -variant fr}
 
-scs(){ dir=`du -a ~/Dropbox/computer_science/ | awk '{print $2}' | fzf `; $EDITOR $dir}
-sh(){ dir=`du -a ~/ | awk '{print $2}' | fzf `; $EDITOR $dir};
+sc(){ dir=`du -a ~/Dropbox/computer_science/ | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir}
+sh(){ dir=`du -a ~/ | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir};
+ss(){ dir=`du -a ~/tools/scripts | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir};
+sd(){ dir=`du -a ~/dotfiles | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir};
+
+
+zc(){ dir=`du -a ~/Dropbox/computer_science/ | awk '{print $2}' | grep -v .git | grep .pdf | fzf ` | args $READER};
