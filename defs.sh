@@ -54,7 +54,7 @@ reset(){
     #&1 is File descriptor 1 is the standard output (stdout)
     #2 is the standard error (stderr)
     #% has syntax of file descriptors only in context of redirections, i.e. after >
-    ~/.config/bspwm/bspwmrc > /dev/null 2>&1
+    ~/.config/bspwm/bspwmrc >/dev/null 2>&1
 }
 
 logout(){pkill x}
@@ -69,4 +69,4 @@ ss(){ dir=`du -a ~/tools/scripts | awk '{print $2}' | grep -v .git | fzf `; $EDI
 sd(){ dir=`du -a ~/dotfiles | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir};
 
 
-zc(){ dir=`du -a ~/Dropbox/computer_science/ | awk '{print $2}' | grep -v .git | grep .pdf | fzf ` | args $READER};
+zc(){ du -a ~/Dropbox/computer_science/ | awk '{print $2}' | grep -v .git | grep .pdf| dmenu -l 30 -nb black -nf white -sb "#BBBBDD" -sf black  | xargs -I {} zathura "{}"};
