@@ -13,7 +13,7 @@ s(){
     echo "Are you sure that you want to shut down your computer?"
     read answer
     if [ "$answer" = "yes" ] || [ "$answer" = "y" ]; then
-        shutdown now
+        doas shutdown -P now
     fi
     if [ "$answer" = "no" ] || [ "$answer" = "n" ]; then
         echo "Saved your ass. HEEEEEEEEEEEEEEEEEEEEE."
@@ -64,9 +64,17 @@ en(){setxkbmap -layout us}
 fr(){setxkbmap -layout ca -variant fr}
 
 sc(){ dir=`du -a ~/Dropbox/computer_science/ | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir}
-sh(){ dir=`du -a ~/ | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir};
 ss(){ dir=`du -a ~/tools/scripts | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir};
 sd(){ dir=`du -a ~/dotfiles | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir};
 
 
 zc(){ du -a ~/Dropbox/computer_science/ | awk '{print $2}' | grep -v .git | grep .pdf| dmenu -l 30 -nb black -nf white -sb "#BBBBDD" -sf black  | xargs -I {} zathura "{}"};
+
+
+em(){ doas emerge --ask $1 }
+ed(){doas vim $1}
+
+vol(){~/pulsemixer/pulsemixer $1 $2}
+
+
+lns(){doas ln -s $PWD/$1 $2}
