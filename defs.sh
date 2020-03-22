@@ -1,13 +1,13 @@
 latex_build(){
-    perl ~/tools/scripts/latex_build/latex_build.pl $1
+    perl ~/scripts/latex_build/latex_build.pl $1
 }
 
-define(){perl ~/tools/scripts/define/define.pl $1}
+define(){perl ~/scripts/define/define.pl $1}
 
 
-cs(){perl ~/tools/scripts/cs_function/cs.pl}
+cs(){perl ~/scripts/cs_function/cs.pl}
 
-cs_config(){$EDITOR ~/tools/scripts/cs_function/cs.pl}
+cs_config(){$EDITOR ~/scripts/cs_function/cs.pl}
 
 s(){
     echo "Are you sure that you want to shut down your computer?"
@@ -49,32 +49,18 @@ config(){
     fi
 }
 
-reset(){
-    #> /dev/null sends output to the null device
-    #&1 is File descriptor 1 is the standard output (stdout)
-    #2 is the standard error (stderr)
-    #% has syntax of file descriptors only in context of redirections, i.e. after >
-    ~/.config/bspwm/bspwmrc >/dev/null 2>&1
-}
-
 logout(){pkill x}
+
 p(){bluetoothctl pair $beats_id}
 c(){bluetoothctl connect $beats_id}
+
 en(){setxkbmap -layout us}
 fr(){setxkbmap -layout ca -variant fr}
-
-sc(){ dir=`du -a ~/Dropbox/computer_science/ | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir}
-ss(){ dir=`du -a ~/tools/scripts | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir};
-sd(){ dir=`du -a ~/dotfiles | awk '{print $2}' | grep -v .git | fzf `; $EDITOR $dir};
-
-
-zc(){ du -a ~/Dropbox/computer_science/ | awk '{print $2}' | grep -v .git | grep .pdf| dmenu -l 30 -nb black -nf white -sb "#BBBBDD" -sf black  | xargs -I {} zathura "{}"};
-
 
 em(){ doas emerge --ask $1 }
 ed(){doas vim $1}
 
 vol(){~/pulsemixer/pulsemixer $1 $2}
 
-
-lns(){doas ln -s $PWD/$1 $2}
+update(){ doas emerge -uDU --keep-going --with-bdeps=y @world }
+sync() { doas eix-sync }
