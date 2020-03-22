@@ -1,51 +1,41 @@
-latex_build(){
-    perl ~/scripts/latex_build/latex_build.pl $1
-}
-
-define(){perl ~/scripts/define/define.pl $1}
-
-
-cs(){perl ~/scripts/cs_function/cs.pl}
-
-cs_config(){$EDITOR ~/scripts/cs_function/cs.pl}
-
 s(){
     echo "Are you sure that you want to shut down your computer?"
     read answer
     if [ "$answer" = "yes" ] || [ "$answer" = "y" ]; then
         doas shutdown -P now
     fi
-    if [ "$answer" = "no" ] || [ "$answer" = "n" ]; then
-        echo "Saved your ass. HEEEEEEEEEEEEEEEEEEEEE."
-    fi
 }
 
 #Change this function to search for config files in ~/dotfiles/* rather than ~/.config/*, since these are symbolically linked to the latter anyway.
 config(){
-    echo "Which config file do you want to open?"
-    read answer
-    if [ "$answer" = "i3" ]; then
+    if [ "$1" = "i3" ]; then
         $EDITOR ~/dotfiles/i3/config
-    elif [ "$answer" = "picom" ]; then
+    elif [ "$1" = "picom" ]; then
         $EDITOR ~/dotfiles/picom/picom.conf
-    elif [ "$answer" = "dunst" ]; then
+    elif [ "$1" = "dunst" ]; then
         $EDITOR ~/dotfiles/dunst/dunstrc
-    elif [ "$answer" = "vim" ]; then
+    elif [ "$1" = "vim" ]; then
         $EDITOR ~/dotfiles/vim/.vimrc
-    elif [ "$answer" = "zsh" ]; then
+    elif [ "$1" = "zsh" ]; then
         $EDITOR ~/dotfiles/zsh/.zshrc
-    elif [ "$answer" = "rofi" ]; then
+    elif [ "$1" = "rofi" ]; then
         $EDITOR ~/dotfiles/rofi/config
-    elif [ "$answer" = "polybar" ]; then
+    elif [ "$1" = "polybar" ]; then
         $EDITOR ~/dotfiles/polybar/config
-    elif [ "$answer" = "bspwm" ]; then
+    elif [ "$1" = "bspwm" ]; then
         $EDITOR ~/dotfiles/bspwm/bspwmrc
-    elif [ "$answer" = "bindings" ]; then
+    elif [ "$1" = "bindings" ]; then
         $EDITOR ~/dotfiles/sxhkd/sxhkdrc
-    elif [ "$answer" = "st" ]; then
-        $EDITOR ~/dotfiles/st/config.h
+    elif [ "$1" = "st" ]; then
+        $EDITOR ~/st/config.h
+    elif [ "$1" = "dwm" ]; then
+        $EDITOR ~/dwm/config.
+    elif [ "$1" = "status" ]; then
+        $EDITOR ~/dwmstatus/dwmstatus.c
+    elif [ "$1" = "dmenu" ]; then
+        $EDITOR ~/dmenu/config.h
     else
-        echo "Sorry, couldn't find a config file in reference to the name $answer !"
+        echo "Sorry, couldn't find a config file by query: $1 !"
     fi
 }
 
