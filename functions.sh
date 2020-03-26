@@ -29,7 +29,7 @@ config(){
     elif [ "$1" = "st" ]; then
         $EDITOR ~/st/config.h
     elif [ "$1" = "dwm" ]; then
-        $EDITOR ~/dwm/config.
+        $EDITOR ~/dwm/config.h
     elif [ "$1" = "status" ]; then
         $EDITOR ~/dwmstatus/dwmstatus.c
     elif [ "$1" = "dmenu" ]; then
@@ -54,3 +54,15 @@ vol(){~/pulsemixer/pulsemixer $1 $2}
 
 update(){ doas emerge -uDU --keep-going --with-bdeps=y @world }
 sync() { doas eix-sync }
+sup() { sync && update }
+
+makest(){ cd ~/st/; doas make clean install }
+makedwm(){ cd ~/dwm/; doas make clean install }
+makestatus(){ cd ~/dwmstatus/; doas make clean install }
+makedmenu(){ cd ~/dmenu/; doas make clean install }
+
+update_suckless(){
+    makest &&
+    makedwm &&
+    makestatus &&
+}
