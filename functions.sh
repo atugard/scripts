@@ -54,7 +54,8 @@ vol(){~/pulsemixer/pulsemixer $1 $2}
 
 update(){ doas emerge -uDU --keep-going --with-bdeps=y @world }
 sync() { doas eix-sync }
-sup() { sync && update }
+clean () { doas emerge --depclean --verbose}
+sup() { sync && update && clean}
 
 makest(){ cd ~/st/; doas make clean install }
 makedwm(){ cd ~/dwm/; doas make clean install }
