@@ -58,7 +58,7 @@ clean () { doas emerge --depclean }
 sup() { sync && update && clean}
 
 kerset() { doas eselect kernel set $(eselect kernel list | tail -1 | grep -o "\[[1-9]]" | grep -o "[1-9]") }
-makekernel(){ cd /usr/src/linux/ && doas make && doas make modules_install && cd /boot && doas make install && doas dracut --kver $(eselect kernel list | tail -1 | cut -d '-' -f 2-3) }
+makekernel(){ cd /usr/src/linux/ && doas make -j5 && doas make modules_install && cd /boot && doas make install && doas dracut --kver $(eselect kernel list | tail -1 | cut -d '-' -f 2-3) }
 kup(){doas cp /usr/src/linux/.config ~/gentoo/kernel/ && kerset &&  doas cp ~/gentoo/kernel/.config /usr/src/linux/ && cd /usr/src/linux && doas make syncconfig && makekernel}
 
 makest(){ cd ~/st/; doas make clean install }
