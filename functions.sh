@@ -55,9 +55,7 @@ vol(){~/pulsemixer/pulsemixer $1 $2}
 update(){ doas emerge -uDU --keep-going --with-bdeps=y --autounmask-write @world }
 sync() { doas eix-sync }
 clean () { doas emerge --depclean }
-sup() { sync && update && clean}
-
-kerset() { doas eselect kernel set $(eselect kernel list | tail -1 | grep -o "\[[1-9]]" | grep -o "[1-9]") }
+sup() { sync && update }
 
 makekernel(){ 
     cd /usr/src/linux/ && 
@@ -68,7 +66,7 @@ makekernel(){
 
 kup(){
     doas cp /usr/src/linux/.config ~/gentoo/kernel/ && 
-    kerset &&  
+    doas eselect kernel set $(eselect kernel list | tail -1 | grep -o "\[[1-9]]" | grep -o "[1-9]") &&
     doas cp ~/gentoo/kernel/.config /usr/src/linux/ && 
     cd /usr/src/linux && 
     doas make syncconfig && 
