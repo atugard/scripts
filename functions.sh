@@ -52,11 +52,12 @@ ed(){doas vim $1}
 
 vol(){~/pulsemixer/pulsemixer $1 $2}
 
-update(){ doas emerge -uDU --keep-going --with-bdeps=y @world }
+update(){ doas emerge -uDU --keep-going --with-bdeps=y --autounmask-write @world }
 sync() { doas eix-sync }
-clean () { doas emerge --depclean --verbose}
+clean () { doas emerge --depclean }
 sup() { sync && update && clean}
 
+makekernel(){ cd /usr/src/linux/ && doas make && doas make modules_install && cd /boot && doas make install && doas dracut --kver $(eselect kernel list | tail -1 | cut -d '-' -f 2-3) }
 makest(){ cd ~/st/; doas make clean install }
 makedwm(){ cd ~/dwm/; doas make clean install }
 makestatus(){ cd ~/dwmstatus/; doas make clean install }
