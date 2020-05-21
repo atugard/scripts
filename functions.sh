@@ -65,6 +65,8 @@ makekernel(){
 }
 
 kup(){
+    #cd /boot &&
+    #doas grep -P "[0-9]\.[0-9]\.[0-9]" | xargs -d"\n" rm
     doas cp /usr/src/linux/.config ~/gentoo/kernel/ && 
     doas eselect kernel set $(eselect kernel list | tail -1 | grep -o "\[[1-9]]" | grep -o "[1-9]") &&
     doas cp ~/gentoo/kernel/.config /usr/src/linux/ && 
