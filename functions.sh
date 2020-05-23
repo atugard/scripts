@@ -78,6 +78,11 @@ kup(){
     doas grub-mkconfig -o /boot/grub/grub.cfg &&
 }
 
+lnp(){
+doas ln -s /home/david/gentoo/portage/package.use/$1 /etc/portage/package.use/
+}
+
+
 makest(){ cd ~/st/; doas make clean install }
 makedwm(){ cd ~/dwm/; doas make clean install }
 makestatus(){ cd ~/dwmstatus/; doas make clean install }
