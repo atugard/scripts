@@ -52,44 +52,48 @@ ed(){doas vim $1}
 
 vol(){~/pulsemixer/pulsemixer $1 $2}
 
-update(){ doas emerge -uDU --keep-going --with-bdeps=y --autounmask-write @world }
-sync() { doas eix-sync }
-clean () { doas emerge --depclean }
-sup() { sync && update }
+up(){ doas pacman -Syu }
+#update(){ doas emerge -uDU --keep-going --with-bdeps=y --autounmask-write @world }
+#sync() { doas eix-sync }
+#clean () { doas emerge --depclean }
+#sup() { sync && update }
+#
+#makekernel(){ 
+#    cd /usr/src/linux/ && 
+#    doas make -j5 && 
+#    doas make modules_install && 
+#    doas make install 
+#}
+#
+#kup(){
+#    #cd /boot &&
+#    #doas grep -P "[0-9]\.[0-9]\.[0-9]" | xargs -d"\n" rm
+#    doas cp /usr/src/linux/.config ~/gentoo/kernel/ && 
+#    doas eselect kernel set $(eselect kernel list | tail -1 | grep -o "\[[1-9]]" | grep -o "[1-9]") &&
+#    doas cp ~/gentoo/kernel/.config /usr/src/linux/ && 
+#    cd /usr/src/linux && 
+#    doas make syncconfig && 
+#    makekernel &&
+#    cd /boot && 
+#    doas dracut --kver $(eselect kernel list | tail -1 | cut -d '-' -f 2-3 | cut -d '*' -f 1)  &&
+#    doas grub-mkconfig -o /boot/grub/grub.cfg &&
+#}
 
-makekernel(){ 
-    cd /usr/src/linux/ && 
-    doas make -j5 && 
-    doas make modules_install && 
-    doas make install 
-}
-
-kup(){
-    #cd /boot &&
-    #doas grep -P "[0-9]\.[0-9]\.[0-9]" | xargs -d"\n" rm
-    doas cp /usr/src/linux/.config ~/gentoo/kernel/ && 
-    doas eselect kernel set $(eselect kernel list | tail -1 | grep -o "\[[1-9]]" | grep -o "[1-9]") &&
-    doas cp ~/gentoo/kernel/.config /usr/src/linux/ && 
-    cd /usr/src/linux && 
-    doas make syncconfig && 
-    makekernel &&
-    cd /boot && 
-    doas dracut --kver $(eselect kernel list | tail -1 | cut -d '-' -f 2-3 | cut -d '*' -f 1)  &&
-    doas grub-mkconfig -o /boot/grub/grub.cfg &&
-}
-
-lnp(){
-doas ln -s /home/david/gentoo/portage/package.use/$1 /etc/portage/package.use/
-}
-
+#lnp(){
+#doas ln -s /home/david/gentoo/portage/package.use/$1 /etc/portage/package.use/
+#}
+#
 
 makest(){ cd ~/st/; doas make clean install }
 makedwm(){ cd ~/dwm/; doas make clean install }
 makestatus(){ cd ~/dwmstatus/; doas make clean install }
 makedmenu(){ cd ~/dmenu/; doas make clean install }
 
-update_suckless(){
-    makest &&
-        makedwm &&
-        makestatus &&
-    }
+#update_suckless(){
+#    makest &&
+#        makedwm &&
+#        makestatus &&
+#    }
+
+mec(){ cd ~/Dropbox/Physics/ClassicalMechanics; mechanics --load "sicm.rkt"
+     }
