@@ -101,3 +101,6 @@ mec(){ cd ~/Dropbox/Physics/ClassicalMechanics; mechanics --load "sicm.rkt"
 git_sync() {
     rm -rf $1 && git clone https://github.com/atugard/$1
 }
+yta() {
+    mpv --ytdl-format=bestaudio ytdl://ytsearch:"$*"
+}
