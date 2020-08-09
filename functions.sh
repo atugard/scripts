@@ -105,7 +105,7 @@ yta() {
     mpv --ytdl-format=bestaudio ytdl://ytsearch:"$*"
 }
 ytv() {
-    mpv ytdl://ytsearch:"$*"
+    mpv ytdl://ytsearch:"$*" 2&>/dev/null & disown
 }
 
 clean(){
