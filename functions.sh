@@ -104,3 +104,10 @@ git_sync() {
 yta() {
     mpv --ytdl-format=bestaudio ytdl://ytsearch:"$*"
 }
+ytv() {
+    mpv ytdl://ytsearch:"$*"
+}
+
+clean(){
+    doas pacman -Rns $(pacman -Qtdq)
+}
