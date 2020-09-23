@@ -1,3 +1,6 @@
+status() {
+        git status
+}
 add() {
 	git add $1
 }
