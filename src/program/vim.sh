@@ -1,1 +1,5 @@
-ed(){doas vim $1}
+ed(){
+        doas vim $1
+}
+
+
