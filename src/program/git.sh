@@ -36,3 +36,7 @@ clone() {
 sync() {
 	rm -rf $1 && clone https://github.com/atugard/$1
 }
+
+gimme(){
+  git clone https://github.com/atugard/$1
+}

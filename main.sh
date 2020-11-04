@@ -1,5 +1,5 @@
 load(){
-    for folder in ~/shell_functions/src/*; do
+    for folder in ~/shell-functions/src/*; do
 	for file in $folder/*; do
 	    source $file;
 	done
