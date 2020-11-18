@@ -11,7 +11,7 @@ ipkg(){
 }
 
 rpkg(){
-  doas pacman -R $1
+  sudo pacman -R $1
 }
 
 uapkg(){
@@ -23,16 +23,26 @@ uspkg(){
 upkg(){
   uspkg && uapkg
 }
-#upkg(){
-#  sudo aura -Akuax
-#}
 
-qapkg(){
-  sudo aura -Ai $1
+#query package
+qpkg(){
+  if [[ $# == 0 ]]; then
+    aura -Q
+  elif [[ $# == 1 ]]; then
+    aura -Q | grep $1
+  else
+    echo "qpkg takes either 0 or 1 argument. You gave $#."
+  fi
 }
 
+#packagelog
 lpkg(){
   sudo aura -L
+}
+
+#remove orphans
+cpkg(){
+  sudo aura -R $(aura -O)
 }
 
 
