@@ -2,16 +2,12 @@ ipkg(){
   echo "From arch repos or AUR? (r for arch repos, a for AUR)"
   read input
   if [[ $input == r ]]; then
-    sudo aura -S $1
+    sudo pacman -S $1
   elif [[ $input == a ]]; then 
-    sudo aura -A $1
+    yay $1
   else
     echo "Sorry, unrecognized answer. Quitting..."
   fi
-}
-
-rpkg(){
-  sudo pacman -R $1
 }
 
 uapkg(){
@@ -35,6 +31,17 @@ qpkg(){
   fi
 }
 
+rpkg(){
+  pkg=$(qpkg $1)
+
+  if [[ "$packages" == "" ]]; then
+    echo "$1 is not on your system, so can't be removed."
+  else
+    sudo aura -R $pkg
+  fi
+}
+
+
 #packagelog
 lpkg(){
   sudo aura -L
@@ -42,7 +49,12 @@ lpkg(){
 
 #remove orphans
 cpkg(){
-  sudo aura -R $(aura -O)
+  packages=$(aura -O)
+  if [[ "$packages" == "" ]]; then
+    echo "No orphaned pkgs to remove."
+  else
+    sudo aura -R $(aura -O)
+  fi
 }
 
 
