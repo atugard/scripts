@@ -1,5 +1,5 @@
 ed(){
-        doas vim $1
+        sudo vim $1
 }
 
 
