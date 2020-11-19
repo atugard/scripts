@@ -35,7 +35,7 @@ rpkg(){
   pkg=$(qpkg $1)
 
   if [[ "$packages" == "" ]]; then
-    echo "$1 is not on your system, so can't be removed."
+    echo "$1 is not on your system."
   else
     sudo aura -R $pkg
   fi
