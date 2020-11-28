@@ -1,1 +1,1 @@
-# extensional shell functions.
+# Simple program to organize shell functions. 
