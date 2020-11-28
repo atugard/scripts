@@ -1,3 +1,3 @@
 d2(){
-    wine ~/Games/Diablo\ II/Diablo\ II.exe -w
+    cd ~/Games/Diablo\ II/ProjectD2/ && ./Diablo\ II.exe -w
 }

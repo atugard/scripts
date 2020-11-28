@@ -1,8 +1,8 @@
 status() {
-        git status
+  git status
 }
 add() {
-	git add $1
+	git add $1 $2 $3 $4 $5 $6 $7 $8 $9
 }
 
 commit() {
