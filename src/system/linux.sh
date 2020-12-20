@@ -5,7 +5,15 @@ umnt(){
   sudo umount ~/Drives/usb
 }
 search(){
-  sudo find / -name "*$1*"
+  if [[ $# == 0 ]]; then
+    doas find /
+  elif [[ $# == 1 ]]; then
+    doas find / -name "*$1*" 
+  elif [[ $# == 2 ]]; then 
+    search $1 | grep $2 
+  else
+    echo "search takes either 0,1, or 2  arguments. You gave $#."
+  fi
 }
 s(){
 	echo "Are you sure that you want to shut down your computer?"
