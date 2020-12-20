@@ -32,13 +32,7 @@ qpkg(){
 }
 
 rpkg(){
-  pkg=$(qpkg $1)
-
-  if [[ "$packages" == "" ]]; then
-    echo "$1 is not on your system."
-  else
-    sudo aura -R $pkg
-  fi
+  sudo aura -R $1
 }
 
 

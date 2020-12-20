@@ -1,2 +1,2 @@
-mec(){ cd ~/Dropbox/Physics/ClassicalMechanics; mechanics --load "sicm.rkt"
+mec(){ cd ~/Projects/physics/ClassicalMechanics; mechanics --load "sicm.rkt"
 }
