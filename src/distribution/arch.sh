@@ -46,7 +46,12 @@ rpkg(){
     flag="$flag""dd"
   elif [[ $input == n ]]; then 
     flag="$flag""n"
+  else 
+    echo "Sorry, didn't recognize that option"
+    echo "Quitting... "
+    return -1 
   fi
+
   doas pacman $flag $1 $2 $3 $4 $5 $6 $7 $8 $9
   return 1 
 
