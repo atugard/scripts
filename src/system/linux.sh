@@ -21,6 +21,10 @@ s(){
 				fi
 }
 
+
+
+
+
 temp(){
   watch -n 1 sensors 
 }
