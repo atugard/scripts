@@ -61,18 +61,21 @@ spkg(){
   pacman -Ss $1 $2 $3 $4 $5 $6 $7 $8 $9 
 }
 
-opkg(){
-  pacman -Qdt
+olpkg(){
+  pacman -Qdtq
 }
 
 #remove orphans
-cpkg(){
-  packages=$(aura -O)
-  if [[ "$packages" == "" ]]; then
-    echo "No orphaned pkgs to remove."
-  else
-    sudo aura -R $(aura -O)
+opkg(){
+  orphans=$(olpkg)
+  if [[ $orphans == "" ]]; then 
+    echo "No orphans found"
+    return -1
   fi
+
+  doas pacman -Rns $orphans
+  return 1 
+
 }
 
 
