@@ -81,7 +81,7 @@ opkg(){
 
 mirrors(){
   echo "Fetching mirrors..." &&
-    curl -s "https://www.archlinux.org/mirrorlist/?country=${2:-CA}&country=${3:-US}&protocol=https&use_mirror_status=on" | 
+    curl -s "https://archlinux.org/mirrorlist/?country=${2:-CA}&country=${3:-US}&protocol=https&use_mirror_status=on" |
     sed -e 's/^#Server/Server/' -e '/^#/d' | 
     rankmirrors -n ${1:-5} - > /tmp/mirrors &&
     sudo cp /tmp/mirrors /etc/pacman.d/mirrorlist &&
@@ -90,8 +90,8 @@ mirrors(){
   }
 
 linux-tkg(){
-  dir=$pwd
-  cd /tmp &&
+dir=$pwd
+cd /tmp &&
   git clone https://github.com/Frogging-Family/linux-tkg.git &&
   cd linux-tkg &&
   makepkg -si &&
@@ -104,8 +104,8 @@ linux-tkg(){
 #the hook should cd back to pwd if clone is not yet complete,
 #or else it should delete the cloned directory from tmp and cd back to pwd
 rest-tkg(){
-  dir=$pwd
-  cd /tmp &&
+dir=$pwd
+cd /tmp &&
   git clone https://github.com/Frogging-Family/wine-tkg-git.git &&
   cd wine-tkg-git/wine-tkg-git &&
   makepkg -si &&
@@ -118,5 +118,5 @@ rest-tkg(){
 }
 
 update-tkg(){
-  linux-tkg && rest-tkg
+linux-tkg && rest-tkg
 }
