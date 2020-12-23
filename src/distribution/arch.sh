@@ -37,9 +37,7 @@ rpkg(){
   fi
 
   if [[ $input == s ]]; then 
-    echo $flag
     flag="$flag""s"
-    echo $flag
   elif [[ $input == su ]]; then 
     flag="$flag""su"
   elif [[ $input == sc ]]; then 
