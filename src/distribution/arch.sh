@@ -84,9 +84,16 @@ mirrors(){
     curl -s "https://archlinux.org/mirrorlist/?country=${2:-CA}&country=${3:-US}&protocol=https&use_mirror_status=on" |
     sed -e 's/^#Server/Server/' -e '/^#/d' | 
     rankmirrors -n ${1:-5} - > /tmp/mirrors &&
-    sudo cp /tmp/mirrors /etc/pacman.d/mirrorlist &&
-    rm /tmp/mirrors &&
-    echo "Done!"
+    if [ -s /tmp/mirrors ]; then 
+      sudo cp /tmp/mirrors /etc/pacman.d/mirrorlist &&
+      rm /tmp/mirrors &&
+      echo "Done!"
+      return 1
+    else 
+      echo "Something went wrong..."
+      return -1 
+    fi
+
   }
 
 linux-tkg(){
