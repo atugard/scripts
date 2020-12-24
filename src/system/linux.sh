@@ -21,10 +21,8 @@ s(){
 				fi
 }
 
-
-
-
-
-temp(){
-  watch -n 1 sensors 
+tmp() {
+  doas mount -o remount,size=$1G,noatime /tmp
 }
+
+
