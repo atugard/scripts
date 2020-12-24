@@ -6,35 +6,35 @@ add() {
 }
 
 commit() {
-	git commit $1 $2
+	git commit $1
 }
 
 push() {
-git push $1 $2
+  git push $1 $2
 }
 
 pull(){
-git pull $1 $2
+  git pull $1 $2
 }
 
 branch() {
-	git branch $1
+  git branch $1
 }
 
 checkout(){
-	git checkout $1
+  git checkout $1
 }
 
 merge(){
-	git merge $1
+  git merge $1
 }
 
 clone() {
-	git clone $1
+  git clone $1
 }
 
 sync() {
-	rm -rf $1 && clone https://github.com/atugard/$1
+  rm -rf $1 && clone https://github.com/atugard/$1
 }
 
 gimme(){

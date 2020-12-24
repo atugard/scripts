@@ -36,16 +36,8 @@ rpkg(){
     return -1
   fi
 
-  if [[ $input == s ]]; then 
-    flag="$flag""s"
-  elif [[ $input == su ]]; then 
-    flag="$flag""su"
-  elif [[ $input == sc ]]; then 
-    flag="$flag""sc"
-  elif [[ $input == dd ]]; then 
-    flag="$flag""dd"
-  elif [[ $input == n ]]; then 
-    flag="$flag""n"
+  if [[ "$input$" == "" || $input == s || $input == su || $input == sc || $input == dd || $input == n ]]; then 
+    flag="$flag$input"
   else 
     echo "Sorry, didn't recognize that option"
     echo "Quitting... "
@@ -56,7 +48,30 @@ rpkg(){
   return 1 
 
 }
+cpkg(){
+  flag="-c"
+  echo "Remove all( q to quit ),"
+  echo "** files from cache:                                                           Sc"
+  echo "** cached packages that are not currently installed, and unused sync database: S"
 
+  read input
+
+  if [[ $input == q || $input == quit || $input == Q || $input == Quit ]]; then 
+    echo "Quitting..."
+    return -1
+  fi
+  if [[ $input == S || $input == Sc ]]; then 
+    flag="$flag$input"
+  else 
+    echo "Sorry, didn't recognize that option"
+    echo "Quitting... "
+    return -1 
+  fi
+
+  doas pacman $flag
+  return 1 
+
+}
 spkg(){
   pacman -Ss $1 $2 $3 $4 $5 $6 $7 $8 $9 
 }
@@ -86,12 +101,12 @@ mirrors(){
     rankmirrors -n ${1:-5} - > /tmp/mirrors &&
     if [ -s /tmp/mirrors ]; then 
       sudo cp /tmp/mirrors /etc/pacman.d/mirrorlist &&
-      rm /tmp/mirrors &&
-      echo "Done!"
-      return 1
-    else 
-      echo "Something went wrong..."
-      return -1 
+        rm /tmp/mirrors &&
+        echo "Done!"
+              return 1
+            else 
+              echo "Something went wrong..."
+              return -1 
     fi
 
   }
