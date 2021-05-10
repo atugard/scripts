@@ -1,12 +1,15 @@
 ipkg(){
-  echo "From arch repos or AUR? (r for arch repos, a for AUR)"
+  echo "From arch repos or AUR? (r for arch repos, a for AUR, q to Quit),"
   read input
   if [[ $input == r ]]; then
     doas pacman -S $1
   elif [[ $input == a ]]; then 
-    yay $1
+      yay $1
+  elif [[ $input == q ]]; then
+      echo "Okay, quitting."
   else
-    echo "Sorry, unrecognized answer. Quitting..."
+      echo "Sorry, unrecognized answer."
+      ipkg $1
   fi
 }
 upkg(){
@@ -36,7 +39,7 @@ rpkg(){
     return -1
   fi
 
-  if [[ "$input$" == "" || $input == s || $input == su || $input == sc || $input == dd || $input == n ]]; then 
+  if [[ "$input" == "" || $input == s || $input == su || $input == sc || $input == dd || $input == n ]]; then 
     flag="$flag$input"
   else 
     echo "Sorry, didn't recognize that option"
@@ -113,21 +116,44 @@ mirrors(){
 
 linux-tkg(){
 dir=$pwd
-cd /tmp &&
+cd ~/Downloads &&
   git clone https://github.com/Frogging-Family/linux-tkg.git &&
   cd linux-tkg &&
   makepkg -si &&
   cd .. &&
   rm -rf linux-tkg  &&
-  cd $dir
+  cd $dir &&
+  doas update-grub
 }
 
 #need to implement a hook for case where use exits midway. 
 #the hook should cd back to pwd if clone is not yet complete,
 #or else it should delete the cloned directory from tmp and cd back to pwd
-rest-tkg(){
+
+wine-tkg(){
+    dir=$pwd
+    cd ~/Downloads &&
+	git clone https://github.com/Frogging-Family/wine-tkg-git.git &&
+	cd wine-tkg-git/wine-tkg-git &&
+	makepkg -si &&
+	cd ../.. &&
+	rm -rf wine-tkg-git
+        cd $dir
+
+}
+proton-tkg(){
+    dir=$pwd
+        cd ~/Downloads &&
+	    git clone https://github.com/Frogging-Family/wine-tkg-git.git &&
+	    cd wine-tkg-git/proton-tkg &&
+	    makepkg -si &&
+	    cd ../.. &&
+	    rm -rf wine-tkg-git
+	    cd $dir
+    }
+wineproton-tkg(){
 dir=$pwd
-cd /tmp &&
+cd ~/Downloads &&
   git clone https://github.com/Frogging-Family/wine-tkg-git.git &&
   cd wine-tkg-git/wine-tkg-git &&
   makepkg -si &&
@@ -140,5 +166,5 @@ cd /tmp &&
 }
 
 update-tkg(){
-linux-tkg && rest-tkg
+linux-tkg && wineproton-tkg
 }
